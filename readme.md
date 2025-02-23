@@ -1,4 +1,4 @@
-# Configuración y Comandos para Apache Kafka
+# Proyecto Kafka con Spring Boot - Configuración y Comandos para Apache Kafka
 
 ## 📌 Recursos útiles
 
@@ -53,8 +53,9 @@
 .\bin\windows\kafka-console-producer.bat --broker-list {host}:9092 --topic {topic-name}
 ```
 
-
-# Proyecto Kafka con Spring Boot
+---
+---
+---
 
 ## 1. Explicación de la Configuración del Proyecto
 
