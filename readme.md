@@ -1,4 +1,4 @@
-# README - Configuración y Comandos para Apache Kafka
+# Configuración y Comandos para Apache Kafka
 
 ## 📌 Recursos útiles
 
@@ -52,4 +52,65 @@
 ```sh
 .\bin\windows\kafka-console-producer.bat --broker-list {host}:9092 --topic {topic-name}
 ```
+
+
+# Proyecto Kafka con Spring Boot
+
+## 1. Explicación de la Configuración del Proyecto
+
+Este proyecto utiliza Spring Boot y Apache Kafka para la comunicación entre productores y consumidores. Se ha configurado un topic llamado `unProgramadorNace-Topic`, con dos particiones y dos réplicas.
+
+- El productor (`KafkaProviderConfig`) envía mensajes al topic.
+- El consumidor (`KafkaConsumerListener`) escucha los mensajes y los procesa.
+- El topic (`KafkaTopicConfig`) es configurado dinámicamente al iniciar la aplicación.
+
+## 2. Variables de Entorno y Configuración
+
+Se usa `@Value("${spring.kafka.bootstrap-servers}")` para definir el servidor de Kafka. La configuración se debe agregar en `application.properties` o `application.yml`.
+
+### Configuración en `application.properties`
+```properties
+spring.kafka.bootstrap-servers=localhost:9092
+spring.kafka.consumer.group-id=my-group-id
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+```
+
+## 3. Cómo Ejecutar el Proyecto
+
+### Iniciar la Aplicación Spring Boot
+
+Si usas Maven, puedes iniciar el proyecto con:
+```sh
+mvn spring-boot:run
+```
+
+Si usas Gradle, usa:
+```sh
+./gradlew bootRun
+```
+
+O compila el JAR y ejecútalo:
+```sh
+mvn clean package
+java -jar target/mi-aplicacion.jar
+```
+
+## 4. Ejemplo de Uso con el Código del Proyecto
+
+Puedes probar el flujo de mensajes entre el productor y el consumidor utilizando `curl` o herramientas como Postman.
+
+### Enviar un mensaje desde el productor (Ejemplo con `curl`)
+```sh
+curl -X POST http://localhost:8080/enviar -H "Content-Type: application/json" -d '{"mensaje": "Hola desde Kafka"}'
+```
+
+### Ver los mensajes recibidos en la consola del consumidor
+Si ejecutaste el consumidor correctamente, deberías ver algo como:
+```yaml
+Mensaje recibido, el mensaje es: Hola desde Kafka
+```
+
 
